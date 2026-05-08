@@ -9,6 +9,6 @@ resource "aws_vpc_security_group_egress_rule" "all_outbound" {
   security_group_id = aws_security_group.nat.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
-  description       = "Sortant libre — requis pour le NAT"
+  description       = "Outbound only - required for NAT"
   tags              = local.tags
 }
