@@ -22,7 +22,7 @@ resource "aws_eip" "nat" {
 
 module "fck_nat" {
   source  = "RaJiska/fck-nat/aws"
-  version = "~> 1.3"
+  version = "~> 1.3.0"
 
   name          = var.name
   vpc_id        = var.vpc_id
