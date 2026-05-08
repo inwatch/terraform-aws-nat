@@ -14,7 +14,41 @@ resource "aws_iam_role" "gatewatch" {
   tags               = local.tags
 }
 
-# S3 — téléchargement du binaire agent depuis le bucket GateWatch
+resource "aws_iam_role_policy" "nat_management" {
+  name = "gatewatch-nat-management"
+  role = aws_iam_role.gatewatch.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ec2:AttachNetworkInterface",
+          "ec2:ModifyNetworkInterfaceAttribute",
+        ]
+        Resource = "*"
+        Condition = {
+          StringEquals = {
+            "ec2:ResourceTag/Name" = var.name
+          }
+        }
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ec2:AssociateAddress",
+          "ec2:DisassociateAddress",
+        ]
+        Resource = [
+          "arn:aws:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:elastic-ip/${aws_eip.nat.id}",
+          "arn:aws:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:network-interface/*"
+        ]
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role_policy" "s3_releases" {
   name = "gatewatch-s3-releases"
   role = aws_iam_role.gatewatch.id
@@ -29,7 +63,6 @@ resource "aws_iam_role_policy" "s3_releases" {
   })
 }
 
-# SSM — accès sans SSH via AWS Systems Manager
 resource "aws_iam_role_policy_attachment" "ssm" {
   role       = aws_iam_role.gatewatch.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
