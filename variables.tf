@@ -22,7 +22,7 @@ variable "api_token" {
 variable "api_url" {
   description = "URL de l'API GateWatch"
   type        = string
-  default     = "https://app.gatewatch.dev"
+  default     = "https://api.inwatch.dev"
 }
 
 variable "name" {
@@ -46,5 +46,5 @@ variable "releases_bucket" {
 variable "agent_version" {
   description = "Version de l'agent GateWatch à installer (ex: 0.5.0)"
   type        = string
-  default     = "0.8.0"
+  default     = "0.8.2"
 }
