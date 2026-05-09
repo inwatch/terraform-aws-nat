@@ -28,7 +28,7 @@ variable "api_url" {
 variable "name" {
   description = "Préfixe pour les ressources créées"
   type        = string
-  default     = "gatewatch"
+  default     = "inwatch"
 }
 
 variable "instance_type" {
@@ -40,7 +40,7 @@ variable "instance_type" {
 variable "releases_bucket" {
   description = "Bucket S3 contenant les binaires de l'agent GateWatch"
   type        = string
-  default     = "gatewatch-agent-releases"
+  default     = "inwatch-agent-releases"
 }
 
 variable "agent_version" {
