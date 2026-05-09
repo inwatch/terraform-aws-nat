@@ -42,3 +42,8 @@ variable "releases_bucket" {
   type        = string
   default     = "gatewatch-agent-releases"
 }
+
+variable "agent_version" {
+  description = "Version de l'agent GateWatch à installer (ex: 0.4.0)"
+  type        = string
+}

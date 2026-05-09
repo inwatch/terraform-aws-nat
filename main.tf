@@ -97,6 +97,7 @@ resource "aws_launch_template" "nat" {
     api_url         = var.api_url
     api_token       = var.api_token
     releases_bucket = var.releases_bucket
+    agent_version   = var.agent_version
   }))
 
   tag_specifications {
