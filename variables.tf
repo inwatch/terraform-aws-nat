@@ -35,6 +35,11 @@ variable "instance_type" {
   description = "Type d'instance EC2 (doit être ARM64 — t4g recommandé)"
   type        = string
   default     = "t4g.nano"
+
+  validation {
+    condition     = can(regex("^(t4g|t3g|c6g|c7g|m6g|m7g|r6g|r7g|x2g|im4g|is4gen)\\.", var.instance_type))
+    error_message = "instance_type must be an ARM64 (Graviton) instance family. Examples: t4g.nano, t4g.micro, c7g.medium."
+  }
 }
 
 variable "releases_bucket" {
