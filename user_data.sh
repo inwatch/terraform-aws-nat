@@ -56,6 +56,8 @@ RestartSec=5
 StartLimitIntervalSec=60
 StartLimitBurst=3
 OnFailure=gatewatch-agent-rollback.service
+NotifyAccess=main
+WatchdogSec=600
 StandardOutput=journal
 StandardError=journal
 
